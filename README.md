@@ -97,3 +97,8 @@ curl -X PUT -H "Content-Type: application/json" http://localhost:8080/api/produi
 ```shell
 curl -X DELETE http://localhost:8080/api/produits/1
 ```
+
+## Issues 
+
+- Improve Exception Management
+
