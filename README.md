@@ -42,6 +42,28 @@ curl -X PUT -H "Content-Type: application/json" http://localhost:8080/api/produi
 curl -X DELETE http://localhost:8080/api/produits/1
 ```
 
+### Add Swagger
+
+Modify somes files
+
+- pom.xml
+
+```xml
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.2.0</version>
+</dependency>
+```
+
+- ProduitController.java
+
+```java
+@Tag(name = "Produits", description = "Gestion des produits")
+@Operation(summary = "Récupérer tous les produits")
+@Operation(summary = "Créer un nouveau produit")
+```
+
 ## Docker
 
 ## MongoDB

@@ -16,39 +16,41 @@ import org.springframework.web.bind.annotation.RestController;
 
 import imt.production.dev.Model.Produit;
 import imt.production.dev.Service.ProduitService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/produits")
-// @Tag(name = "Produits", description = "Gestion des produits")
+@Tag(name = "Produits", description = "Gestion des produits")
 public class ProduitController {
 
     @Autowired
     private ProduitService produitService;
 
     // Get all products
-    // @Operatio(summary = "Récupérer tous les produits")
+    @Operation(summary = "Récupérer tous les produits")
     @GetMapping
     public List<Produit> getAllProduits() {
         return produitService.getAllProduits();
     }
 
     // Create a new product
-    // @Operation(summary = "Créer un nouveau produit")
+    @Operation(summary = "Créer un nouveau produit")
     @PostMapping
     public ResponseEntity<Produit> createProduit( @RequestBody Produit produit) {
         Produit createdProduit = produitService.createProduit(produit);
         return ResponseEntity.ok(createdProduit);
     }
 
-    // @Operation(summary = "Récupérer un produit par son ID")
+    @Operation(summary = "Récupérer un produit par son ID")
     @GetMapping("/{id}")
     public ResponseEntity<Produit> getProduitById(@PathVariable int id) {
         Optional<Produit> produit = produitService.getProduitById(id);
-        return produit.map(ResponseEntity::ok)
-                      .orElse(ResponseEntity.notFound().build());
+        return produit.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     // Update an existing product
+    @Operation(summary = "Mettre à jour un produit existant")
     @PutMapping("/{id}")
     public ResponseEntity<Produit> updateProduit(@PathVariable int id, @RequestBody Produit updatedProduit) {
         return produitService.getProduitById(id).map(existingProduit -> {
@@ -61,6 +63,7 @@ public class ProduitController {
     }
     
     // Delete a product by ID
+    @Operation(summary = "Supprimer un produit par son ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduit(@PathVariable int id) {
         Optional<Produit> produit = produitService.getProduitById(id);
@@ -72,6 +75,7 @@ public class ProduitController {
     }
 
     // Get products with price less than a certain value
+    @Operation(summary = "Recupere les produits dont le prix est inferieur a une certaine valeur")
     @GetMapping("/prix/{maxPrix}")
     public List<Produit> getProduitsByPrix(@PathVariable int maxPrix) {
         return produitService.getProduitsByPrixLessThan(maxPrix);

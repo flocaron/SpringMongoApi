@@ -3,7 +3,10 @@ package imt.production.dev.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-// import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 
 @Document(collection = "produits")
 public class Produit {
@@ -11,15 +14,15 @@ public class Produit {
     @Id
     private int id;
 
-    // @NotBlank(message = "Le nom du produit est obligatoire.")
-    // @Size(max = 25, message = "Le nom du produit ne peut pas dépasser 25 caractères.")
+    @NotBlank(message = "Le nom du produit est obligatoire.")
+    @Size(max = 25, message = "Le nom du produit ne peut pas dépasser 25 caractères.")
     private String nom;
 
-    // @NotBlank(message = "La description est obligatoire.")
-    // @Size(min = 25, message = "La description doit contenir au moins 25 caractères.")
+    @NotBlank(message = "La description est obligatoire.")
+    @Size(min = 25, message = "La description doit contenir au moins 25 caractères.")
     private String description;
 
-    // @Min(value = 1, message = "Le prix doit être supérieur à 0.")
+    @Min(value = 1, message = "Le prix doit être supérieur à 0.")
     private int prix;
 
 
@@ -27,7 +30,7 @@ public class Produit {
         return id;
     }
 
-    public void setReference(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
