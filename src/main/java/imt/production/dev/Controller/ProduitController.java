@@ -18,6 +18,7 @@ import imt.production.dev.Model.Produit;
 import imt.production.dev.Service.ProduitService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/produits")
@@ -37,7 +38,7 @@ public class ProduitController {
     // Create a new product
     @Operation(summary = "Créer un nouveau produit")
     @PostMapping
-    public ResponseEntity<Produit> createProduit( @RequestBody Produit produit) {
+    public ResponseEntity<Produit> createProduit(@Valid @RequestBody Produit produit) {
         Produit createdProduit = produitService.createProduit(produit);
         return ResponseEntity.ok(createdProduit);
     }
@@ -52,7 +53,7 @@ public class ProduitController {
     // Update an existing product
     @Operation(summary = "Mettre à jour un produit existant")
     @PutMapping("/{id}")
-    public ResponseEntity<Produit> updateProduit(@PathVariable int id, @RequestBody Produit updatedProduit) {
+    public ResponseEntity<Produit> updateProduit(@PathVariable int id, @Valid @RequestBody Produit updatedProduit) {
         return produitService.getProduitById(id).map(existingProduit -> {
             existingProduit.setNom(updatedProduit.getNom());
             existingProduit.setDescription(updatedProduit.getDescription());

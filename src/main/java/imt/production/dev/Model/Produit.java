@@ -1,6 +1,7 @@
 package imt.production.dev.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.Min;
@@ -12,6 +13,7 @@ import jakarta.validation.constraints.Size;
 public class Produit {
 
     @Id
+    @Indexed(unique = true)
     private int id;
 
     @NotBlank(message = "Le nom du produit est obligatoire.")
